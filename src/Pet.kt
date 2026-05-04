@@ -5,24 +5,16 @@ import kotlin.random.Random
 // Level 1, Aufgabe 1: Definition der Klasse Pet[cite: 1].
 class Pet(val actor: Actor = Actor(Assets.dog.HAPPY)) {
 
-    var name: String = "Kodee"
+    val nickname: String
+        get() = name.first().toString() + "."
 
-    // Level 1, Aufgabe 2: health ist nun ein Health-Objekt[cite: 1].
+    val name: String = "Kodee"
     var health: Health = Health()
-
-    // Happiness kann von außen gelesen, aber idealerweise nur durch Methoden verändert werden.
     var happiness: Int = 50
-
-    // Level 1, Aufgabe 3: Actor für die Textanzeige[cite: 1].
     val statusText = Actor(Assets.EMPTY)
 
-    // Level 1, Aufgabe 5: Privates Inventar (Sichtbarkeit: Level 2, Aufgabe 5)[cite: 1].
     private val inventory = mutableListOf<Item>()
-
-    // Level 3, Aufgabe 5: Speichert die letzte Aktivität, um Langeweile zu simulieren[cite: 1].
     private var lastActivity: String? = null
-
-    // Level 2, Aufgabe 2: Berechnete Eigenschaft (wahr, wenn Energie < 20)[cite: 1].
     val hungry: Boolean
         get() = health.energy < 20
 
@@ -68,7 +60,7 @@ class Pet(val actor: Actor = Actor(Assets.dog.HAPPY)) {
         updateUI()
     }
 
-    // Level 1, Aufgabe 5 & Level 2, Aufgabe 1: Items hinzufügen[cite: 1].
+
     fun addItem(item: Item) {
         if (item.category == ItemCategory.FOOD) {
             // Wenn es Essen ist, sofort verfüttern und Redundanz vermeiden[cite: 1].
@@ -84,24 +76,16 @@ class Pet(val actor: Actor = Actor(Assets.dog.HAPPY)) {
             println("${item.name} wurde zum Inventar hinzugefügt.")
         }
     }
-
-    // Level 1, Aufgabe 5: Item entfernen[cite: 1].
     fun removeItem(item: Item) {
         if (inventory.remove(item)) {
             happiness -= item.happinessImpact
             updateUI()
         }
     }
-
-    // Level 1, Aufgabe 5: Items zählen[cite: 1].
     fun countItems(): Int = inventory.size
-
-    // Level 3, Aufgabe 2: Prüft, ob ein Item mit bestimmtem Namen existiert[cite: 1].
     fun hasItem(itemName: String): Boolean {
         return inventory.any { it.name.equals(itemName, ignoreCase = true) }
     }
-
-    // Level 2, Aufgabe 1 & Level 3, Aufgabe 3: Methode feed wirft Exception bei Non-Food[cite: 1].
     fun feed(item: Item) {
         if (item.category != ItemCategory.FOOD) {
             throw Exception("Dieses Item ist kein FOOD und kann nicht gegessen werden!")
@@ -111,8 +95,6 @@ class Pet(val actor: Actor = Actor(Assets.dog.HAPPY)) {
         updateUI()
         println("${item.name} wurde gegessen! Energie und Happiness steigen.")
     }
-
-    // Level 2, Aufgabe 3 & Level 3, Aufgabe 5: Führt Aktivität aus[cite: 1].
     fun doActivity(activity: Activity) {
         try { // Level 3, Aufgabe 3: try-catch für Ausnahmesituationen[cite: 1].
 

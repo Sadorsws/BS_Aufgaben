@@ -1,12 +1,13 @@
+import de.th_koeln.imageprovider.Assets
 
 // Level 2, Aufgabe 3: Klasse Activity[cite: 1].
-class Activity(
+open class Activity(
     val description: String,
     val energyImpact: Int = -10, // Aktivitäten kosten meist Energie
     val happinessImpact: Int = 20
 ) {
     // Level 2, Aufgabe 3: execute-Methode nimmt ein Pet entgegen[cite: 1].
-    fun execute(pet: Pet) {
+    open fun execute(pet: Pet) {
         // Level 3, Aufgabe 2 & 3: Prüfen, ob für Fußball ein Ball im Inventar ist. Wenn nicht -> Exception[cite: 1].
         if (description == "Fußball spielen" && !pet.hasItem("Ball")) {
             throw Exception("Um Fußball zu spielen, wird ein Ball im Inventar benötigt!")
@@ -16,20 +17,41 @@ class Activity(
         pet.health.energy += energyImpact
         pet.happiness += happinessImpact
 
-        // Level 3, Aufgabe 4: Verzweigung für Bühnen-Effekte über das Companion Object von Game[cite: 1].
-        when (description) {
-            "Kekse backen" -> {
-                println("Effekt: Kekse erscheinen auf der Stage!")
-                // Game.instance.stage.addActor(...)
-            }
-            "Laufen" -> {
-                println("Effekt: Kodee bewegt sich hin und her!")
-                pet.actor.x += 20
-                pet.actor.x -= 20
-            }
-            "Fußball spielen" -> {
-                println("Effekt: Der Ball fliegt über die Stage!")
-            }
+        println(pet.health.energy)
+        print(pet.happiness)
+    }
+}
+
+class BakeCookies() : Activity("Kekse backen", -5, 20) {
+    override fun execute(pet: Pet) {
+        super.execute(pet) // Führt Standard-Verrechnung aus
+        val keks = Item("Keks", ItemCategory.FOOD, 1.0, 5, 5)
+        pet.addItem(keks) // Spezifische Logik: Item hinzufügen
+    }
+}
+// Unterklasse für Laufen
+class Running() : Activity("Laufen", -15, 10) {
+    override fun execute(pet: Pet) {
+        super.execute(pet)
+        println("Puh!") // Spezifische Logik: Konsolenausgabe
+    }
+}
+
+// Unterklasse für Fußball spielen
+class PlayFootball() : Activity("Fußball spielen", -20, 30) {
+    override fun execute(pet: Pet) {
+        // Spezifische Logik: Bedingte Ausführung nur mit Ball
+        if (pet.hasItem("Ball")) {
+            super.execute(pet)
+            println("Tor!")
+        } else {
+            println("Kein Ball vorhanden – Fußball spielen nicht möglich.")
         }
+    }
+}
+
+class reiten(): Activity("Reiten", -20, 30) {
+    override fun execute(pet: Pet) {
+        println("Reiten!")
     }
 }
