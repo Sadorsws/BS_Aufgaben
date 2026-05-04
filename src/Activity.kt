@@ -7,9 +7,6 @@ class Activity {
         pet.happiness = happinessImpact
         pet.health.energy = energyImpact
 
-//        if(){
-//
-//        }
     }
 
 }
