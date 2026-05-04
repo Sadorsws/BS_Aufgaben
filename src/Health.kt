@@ -1,10 +1,10 @@
+import de.th_koeln.basicstage.Actor
+import de.th_koeln.basicstage.Stage
+import de.th_koeln.imageprovider.Assets
 import kotlin.random.Random
 
-class Health (var energy: Int,var fitness: Int){
-
-
-    init {
-        energy = Random.nextInt(500)
-        fitness = Random.nextInt(100)
-    }
-}
+// Level 1, Aufgabe 2: Klasse Health mit passenden Datentypen.
+class Health(
+    var energy: Int = 100,
+    var fitness: Int = 100
+)
