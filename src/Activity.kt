@@ -1,5 +1,3 @@
-import de.th_koeln.imageprovider.Assets
-
 // Level 2, Aufgabe 3: Klasse Activity[cite: 1].
 open class Activity(
     val description: String,
@@ -9,16 +7,13 @@ open class Activity(
     // Level 2, Aufgabe 3: execute-Methode nimmt ein Pet entgegen[cite: 1].
     open fun execute(pet: Pet) {
         // Level 3, Aufgabe 2 & 3: Prüfen, ob für Fußball ein Ball im Inventar ist. Wenn nicht -> Exception[cite: 1].
-        if (description == "Fußball spielen" && !pet.hasItem("Ball")) {
+        if (description.contentEquals("Fußball") && !pet.hasItem("Ball")) {
             throw Exception("Um Fußball zu spielen, wird ein Ball im Inventar benötigt!")
         }
 
         // Werte anpassen
         pet.health.energy += energyImpact
         pet.happiness += happinessImpact
-
-        println(pet.health.energy)
-        print(pet.happiness)
     }
 }
 
@@ -33,7 +28,6 @@ class BakeCookies() : Activity("Kekse backen", -5, 20) {
 class Running() : Activity("Laufen", -15, 10) {
     override fun execute(pet: Pet) {
         super.execute(pet)
-        println("Puh!") // Spezifische Logik: Konsolenausgabe
     }
 }
 
@@ -47,11 +41,5 @@ class PlayFootball() : Activity("Fußball spielen", -20, 30) {
         } else {
             println("Kein Ball vorhanden – Fußball spielen nicht möglich.")
         }
-    }
-}
-
-class reiten(): Activity("Reiten", -20, 30) {
-    override fun execute(pet: Pet) {
-        println("Reiten!")
     }
 }

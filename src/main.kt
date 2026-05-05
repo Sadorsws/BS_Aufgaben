@@ -11,11 +11,14 @@ fun main() {
     val stage = Stage()
     val pet = Pet()
 
+    //Pet Actor Eigenschaften
     pet.actor.x = 250
     pet.actor.y = 250
     pet.actor.width = 100
     pet.actor.height = 100
 
+    //Pet staus Eigenschaften
+    pet.statusText.x = 10
     pet.statusText.width = 100
 
     // Pet und seine Statusanzeige zur Stage hinzufügen
@@ -33,10 +36,7 @@ fun main() {
     buttonRun.width = 100
     buttonRun.x = 10
     buttonRun.y = 100
-    buttonRun.reactionForMouseClick = {
-        pet.doActivity(activityRun)
-        pet.doActivity(reiten())
-    } // Übergibt das Activity-Objekt an doActivity
+    buttonRun.reactionForMouseClick = { pet.doActivity(activityRun) } // Übergibt das Activity-Objekt an doActivity
     stage.addActor(buttonRun)
 
     // Backen-Button
